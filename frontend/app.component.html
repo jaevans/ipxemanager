@@ -1,0 +1,39 @@
+<div class="container">
+  <header>
+    <h1>iPXE Management System</h1>
+  </header>
+
+  <form (submit)="addSystem()">
+    <h2>Add New System</h2>
+    <input type="text" [(ngModel)]="newSystem.mac_address" name="mac_address" placeholder="MAC Address" required>
+    <input type="text" [(ngModel)]="newSystem.dhcp_class" name="dhcp_class" placeholder="DHCP Class">
+    <input type="text" [(ngModel)]="newSystem.subnet" name="subnet" placeholder="Subnet">
+    <button type="submit">Add System</button>
+  </form>
+
+  <form (submit)="addConfiguration()">
+    <h2>Add New Configuration</h2>
+    <input type="text" [(ngModel)]="newConfiguration.name" name="name" placeholder="Configuration Name" required>
+    <textarea [(ngModel)]="newConfiguration.content" name="content" placeholder="Configuration Content" required></textarea>
+    <button type="submit">Add Configuration</button>
+  </form>
+
+  <div class="configuration-blocks">
+    <h2>Available Configuration Blocks</h2>
+    <div *ngFor="let configuration of configurations" class="configuration-block">
+      <h3>{{ configuration.name }}</h3>
+      <pre>{{ configuration.content }}</pre>
+      <button (click)="deleteConfiguration(configuration)">Delete</button>
+    </div>
+  </div>
+
+  <div class="systems">
+    <h2>Known Systems</h2>
+    <div *ngFor="let system of systems" class="system">
+      <h3>{{ system.mac_address }}</h3>
+      <p>DHCP Class: {{ system.dhcp_class }}</p>
+      <p>Subnet: {{ system.subnet }}</p>
+      <button (click)="deleteSystem(system)">Delete</button>
+    </div>
+  </div>
+</div>
